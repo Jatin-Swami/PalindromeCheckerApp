@@ -16,7 +16,7 @@ public class PalindromeCheckerApp {
                 isPalindrome = false;
                 break;
             }
+            System.out.println("Is it a Palindrome? : " + isPalindrome);
         }
-        System.out.println("Is it a Palindrome? : " + isPalindrome);
     }
 }
