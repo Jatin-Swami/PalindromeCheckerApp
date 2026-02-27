@@ -8,11 +8,13 @@ public class PalindromeCheckerApp {
         for(char ch : text.toCharArray()) {
             stack.push(ch);
         }
+        Queue<Character> queue = new LinkedList<>();
+        for(char ch : text.toCharArray()) {
+            queue.offer(ch);
+        }
         boolean isPalindrome = true;
-        char ch;
-        for(int i = 0; i < text.length(); i++){
-            ch = stack.pop();
-            if(ch != text.charAt(i)){
+        while(!queue.isEmpty()) {
+            if(queue.poll() != stack.pop()) {
                 isPalindrome = false;
                 break;
             }
