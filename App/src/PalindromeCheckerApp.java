@@ -1,20 +1,37 @@
 import java.util.*;
-class PalindromeChecker {
-    String str;
-    public boolean checkPalindrome() {
-        int start = 0;
-        int end = str.length() - 1;
-        while (start < end) {
-            if (str.charAt(start) != str.charAt(end)) {
+interface PalindromeStrategy {
+    String str = "racecar";
+    boolean isPalindrome(String str);
+}
+class StackStrategy implements PalindromeStrategy {
+     public boolean isPalindrome(String str) {
+        Stack<Character> stack = new Stack<>();
+        for(char ch : str.toCharArray()) {
+            stack.push(ch);
+        }
+        char ch = str.charAt(0);
+        for(int i = 0; i < str.length(); i++){
+            ch = stack.pop();
+            if(ch != str.charAt(i)){
                 return false;
             }
-            start++;
-            end--;
         }
         return true;
     }
-    PalindromeChecker(String str) {
-        this.str = str;
+}
+class DequeStrategy implements PalindromeStrategy {
+    public boolean isPalindrome(String str) {
+        Deque<Character> deque = new LinkedList<>();
+        for(char ch : str.toCharArray()) {
+            deque.add(ch);
+        }
+        while(!deque.isEmpty()) {
+            if(deque.size() == 1) break;
+            if(deque.pollFirst() != deque.pollLast()) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 public class PalindromeCheckerApp {
@@ -22,7 +39,19 @@ public class PalindromeCheckerApp {
         Scanner sc = new Scanner(System.in);
         System.out.print("Input text: ");
         String text = sc.nextLine();
-        PalindromeChecker object = new PalindromeChecker(text);
-        System.out.println("Is it a Palindrome? " + object.checkPalindrome());
+        System.out.print("Choose Strategy:\n1. Stack Strategy\n2. Deque Strategy\n");
+        int choice = sc.nextInt();
+        boolean isPalindrome = switch (choice) {
+            case 1 -> {
+                StackStrategy stack = new StackStrategy();
+                yield stack.isPalindrome(text);
+            }
+            case 2 -> {
+                DequeStrategy deque = new DequeStrategy();
+                yield deque.isPalindrome(text);
+            }
+            default -> false;
+        };
+        System.out.println("Is it a Palindrome? " +  isPalindrome);
     }
 }
