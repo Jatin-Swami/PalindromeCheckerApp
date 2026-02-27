@@ -2,15 +2,21 @@ import java.util.*;
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        boolean palindrome = true;
         System.out.print("Input text: ");
         String text = sc.nextLine();
-        for(int i = 0; i < text.length() / 2; i++) {
-            if(text.charAt(i) != text.charAt(text.length() - i - 1)) {
-                palindrome = false;
+        Stack<Character> stack = new Stack<>();
+        for(char ch : text.toCharArray()) {
+            stack.push(ch);
+        }
+        boolean isPalindrome = true;
+        char ch;
+        for(int i = 0; i < text.length(); i++){
+            ch = stack.pop();
+            if(ch != text.charAt(i)){
+                isPalindrome = false;
                 break;
             }
         }
-        System.out.println("Is it a Palindrome? : " +  palindrome);
+        System.out.println("Is it a Palindrome? : " + isPalindrome);
     }
 }
