@@ -1,10 +1,9 @@
 import java.util.*;
 interface PalindromeStrategy {
-    String str = "racecar";
     boolean isPalindrome(String str);
 }
 class StackStrategy implements PalindromeStrategy {
-     public boolean isPalindrome(String str) {
+    public boolean isPalindrome(String str) {
         Stack<Character> stack = new Stack<>();
         for(char ch : str.toCharArray()) {
             stack.push(ch);
@@ -26,7 +25,9 @@ class DequeStrategy implements PalindromeStrategy {
             deque.add(ch);
         }
         while(!deque.isEmpty()) {
-            if(deque.size() == 1) break;
+            if(deque.size() == 1) {
+                break;
+            }
             if(deque.pollFirst() != deque.pollLast()) {
                 return false;
             }
@@ -41,6 +42,7 @@ public class PalindromeCheckerApp {
         String text = sc.nextLine();
         System.out.print("Choose Strategy:\n1. Stack Strategy\n2. Deque Strategy\n");
         int choice = sc.nextInt();
+        long start = System.nanoTime();
         boolean isPalindrome = switch (choice) {
             case 1 -> {
                 StackStrategy stack = new StackStrategy();
@@ -52,6 +54,9 @@ public class PalindromeCheckerApp {
             }
             default -> false;
         };
+        long end = System.nanoTime();
+        long time =  (end - start);
         System.out.println("Is it a Palindrome? " +  isPalindrome);
+        System.out.println("Execution time: " + time + " ns");
     }
 }
