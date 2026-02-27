@@ -4,10 +4,14 @@
             Scanner sc = new Scanner(System.in);
             System.out.print("Input text: ");
             String text = sc.nextLine();
-            String reverse = "";
-            for(int i = text.length() - 1; i >= 0; i--) {
-                reverse += text.charAt(i);
+            char[] arr = text.toCharArray();
+            boolean isPalindrome = true;
+            for(int i = 0; i < arr.length; i++){
+                if(arr[i] != arr[arr.length - i - 1]){
+                    isPalindrome = false;
+                    break;
+                }
             }
-            System.out.println("Is it a Palindrome? : " + text.equals(reverse));
+            System.out.println("Is it a Palindrome? : " + isPalindrome);
         }
     }
