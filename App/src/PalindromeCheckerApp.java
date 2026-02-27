@@ -65,4 +65,4 @@ public class PalindromeCheckerApp {
 
         System.out.println("Is it a Palindrome? " + isPalindrome);
     }
-}`
+}
